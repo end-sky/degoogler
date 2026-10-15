@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Risks and precautions before installing unofficial Android firmware or a custom operating system.">
+  <title>Risks of Unofficial Firmware · FOSS Device Finder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('foss-device-finder-theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+      } catch (_) {}
+      document.addEventListener('DOMContentLoaded', () => {
+        const button = document.getElementById('theme-toggle');
+        const update = () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          button.setAttribute('aria-label', `Switch to ${next} theme`);
+          button.title = `Switch to ${next} theme`;
+        };
+        update();
+        button.addEventListener('click', () => {
+          document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          try { localStorage.setItem('foss-device-finder-theme', document.documentElement.dataset.theme); } catch (_) {}
+          update();
+        });
+      });
+    })();
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="index.html" aria-label="FOSS Device Finder home"><span class="wordmark-symbol" aria-hidden="true">◈</span><span>DEVICE<span class="wordmark-light">FINDER</span></span></a>
+    <nav class="topnav" aria-label="Main navigation"><a href="index.html">Device checker</a><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg><svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 15.4A8.7 8.7 0 0 1 8.6 3.2 8.8 8.8 0 1 0 20.8 15.4Z"></path></svg></button></nav>
+  </header>
+  <main class="risk-page">
+    <section class="risk-hero">
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back to device checker</a>
+      <p class="eyebrow" style="justify-content:flex-start"><span class="eyebrow-dot" style="background:var(--danger);box-shadow:0 0 0 4px var(--danger-soft)"></span> BEFORE YOU FLASH</p>
+      <h1>Custom firmware.<br><span>Real trade-offs.</span></h1>
+      <p class="hero-copy">An unofficial port may give an unsupported phone a new lease on life, but it can be incomplete, insecure, or difficult to recover. “It boots” does not mean every feature works or that it is safe for daily use.</p>
+    </section>
+
+    <div class="risk-alert">
+      <div class="risk-alert-mark" aria-hidden="true">!</div>
+      <div><h2>Back up before changing anything.</h2><p>Bootloader unlocking commonly erases user data. Confirm that you can recover the exact stock firmware for your model, copy important files somewhere else, and read the maintainer’s full instructions before starting.</p></div>
+    </div>
+
+    <section class="risk-list" aria-label="Risks to consider">
+      <article class="risk-item"><h2><span class="risk-number">01</span> Features may not work</h2><p>Unofficial builds can have broken or unreliable cameras, mobile data, calls, VoLTE, Wi-Fi, Bluetooth, NFC, fingerprint readers, GPS, battery management, or hardware encryption. Some problems only show up on particular regional or carrier variants. App compatibility, DRM playback, contactless payments, and banking apps may also change.</p></article>
+      <article class="risk-item"><h2><span class="risk-number">02</span> A failed flash can leave the phone unbootable</h2><p>Using an image for a similar-looking model or the wrong device codename can damage partitions or stop the phone from booting. Sometimes fastboot or recovery can restore it; sometimes recovery is complicated, requires special tools, or is not possible without hardware service. The likelihood and severity depend on the device and the steps used.</p></article>
+      <article class="risk-item"><h2><span class="risk-number">03</span> Security and updates are not guaranteed</h2><p>Unofficial builds vary in maintainer quality, source availability, review, release cadence, and handling of firmware blobs. A build might miss security fixes or include changes you cannot independently verify. With an unlocked bootloader, Android's verified-boot protections do not provide the same assurance as a correctly locked device using a trusted OS signing key.</p></article>
+      <article class="risk-item"><h2><span class="risk-number">04</span> Unlocking and relocking can erase data — or cause boot problems</h2><p>Android documents that bootloader state transitions wipe data partitions. Relocking after installing a custom OS is not a universal “extra safety” step: the project and exact device must explicitly support it. A mismatched signing key, anti-rollback state, or unsupported relocking procedure can prevent the phone from booting.</p></article>
+      <article class="risk-item"><h2><span class="risk-number">05</span> Support can disappear</h2><p>A community maintainer can stop releasing builds at any time. Device support may also depend on proprietary firmware that the manufacturer no longer updates. Check when the last build was published, whether security patches are current, and where you can get help before relying on that phone.</p></article>
+    </section>
+
+    <p class="section-label">Read primary sources before installing</p>
+    <ul class="source-list">
+      <li><div><a href="https://source.android.com/docs/security/features/verifiedboot/boot-flow" target="_blank" rel="noopener noreferrer">Android Open Source Project — Verified Boot flow</a><span>Explains unlocked-bootloader warnings, integrity limitations, and data wiping.</span></div><span class="source-arrow" aria-hidden="true">↗</span></li>
+      <li><div><a href="https://source.android.com/docs/security/features/verifiedboot/device-state" target="_blank" rel="noopener noreferrer">Android Open Source Project — Device state</a><span>Details what locked and unlocked bootloader states mean.</span></div><span class="source-arrow" aria-hidden="true">↗</span></li>
+      <li><div><a href="https://grapheneos.org/install/" target="_blank" rel="noopener noreferrer">GrapheneOS — Official installation guide</a><span>Recommends official installation methods and warns against unreviewed third-party guides.</span></div><span class="source-arrow" aria-hidden="true">↗</span></li>
+      <li><div><a href="https://calyxos.org/docs/guide/security/bootloader-lock/" target="_blank" rel="noopener noreferrer">CalyxOS — Bootloader locking</a><span>Device-specific warnings about relocking after flashing and the fact that relocking wipes data.</span></div><span class="source-arrow" aria-hidden="true">↗</span></li>
+      <li><div><a href="https://doc.e.foundation/devices/" target="_blank" rel="noopener noreferrer">/e/OS — Device selector and build types</a><span>Distinguishes official, community, unofficial, and custom builds and their expectations.</span></div><span class="source-arrow" aria-hidden="true">↗</span></li>
+      <li><div><a href="https://doc.e.foundation/os/faq/" target="_blank" rel="noopener noreferrer">/e/OS — FAQ for unsupported devices</a><span>Discusses possible GSI compatibility and recommends knowing how to restore the original software.</span></div><span class="source-arrow" aria-hidden="true">↗</span></li>
+      <li><div><a href="https://wiki.lineageos.org/devices/" target="_blank" rel="noopener noreferrer">LineageOS — Official device list</a><span>Only listed device variants are supported; near-identical models are not interchangeable.</span></div><span class="source-arrow" aria-hidden="true">↗</span></li>
+    </ul>
+
+    <div class="final-note"><strong>Safer checklist:</strong> identify the exact model and codename; verify that bootloader unlocking is allowed; read the official device instructions end-to-end; confirm the stock recovery path; back up everything; verify downloads where the project provides checksums or signatures; and do not relock the bootloader unless the device-specific official guide tells you to. The device checker is a convenience, not a guarantee of compatibility or safety.</div>
+    <footer class="site-footer"><p>Independent lookup tool · Informational only, not installation advice.</p><a href="index.html">Return to the device checker <span aria-hidden="true">→</span></a></footer>
+  </main>
+</body>
+</html>

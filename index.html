@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Search locally stored device lists for support by privacy-focused Android operating systems.">
+  <title>FOSS Device Finder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="find.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="index.html" aria-label="FOSS Device Finder home">
+      <span class="wordmark-symbol" aria-hidden="true">◈</span>
+      <span>DEVICE<span class="wordmark-light">FINDER</span></span>
+    </a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="risks.html">Firmware risks</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 15.4A8.7 8.7 0 0 1 8.6 3.2 8.8 8.8 0 1 0 20.8 15.4Z"></path></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow"><span class="eyebrow-dot"></span> PRIVACY-FOCUSED MOBILE OS DIRECTORY</p>
+      <h1 id="hero-title">A better OS<br><span>for your phone.</span></h1>
+      <p class="hero-copy">Find out which open-source Android systems list your exact device. Search the local device snapshots, then follow the project's own install documentation.</p>
+
+      <form id="device-search" class="search-form" role="search">
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        <label class="visually-hidden" for="device-query">Phone manufacturer, model, or codename</label>
+        <input id="device-query" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search brand, model, or codename…" required minlength="2">
+        <button class="search-submit" type="submit">Check device <span aria-hidden="true">↗</span></button>
+      </form>
+      <div class="search-meta">
+        <span id="data-status" class="data-status"><span class="loading-dot"></span> Loading local device lists…</span>
+        <span class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg> Search stays in your browser</span>
+      </div>
+      <div class="suggestions" aria-label="Example searches">
+        <span>Try</span>
+        <button type="button" data-query="Pixel 8">Pixel 8</button>
+        <button type="button" data-query="Fairphone 5">Fairphone 5</button>
+        <button type="button" data-query="OnePlus 9">OnePlus 9</button>
+      </div>
+    </section>
+
+    <section id="results-section" class="results-section" aria-live="polite" aria-atomic="false">
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="14" y="4" width="20" height="40" rx="4"></rect><path d="M20 9h8M22 38h4"></path><circle cx="24" cy="22" r="5"></circle><path d="m28 26 4 4"></path></svg></div>
+        <h2>Your phone, your choice.</h2>
+        <p>Enter a manufacturer, model name, or device codename to check the supported-device snapshots.</p>
+      </div>
+      <div id="results" class="results" hidden></div>
+    </section>
+
+    <footer class="site-footer">
+      <p>Independent lookup tool · Not affiliated with any operating system project.</p>
+      <p>Support data comes from the HTML files in <code>static/</code>; entries can change and should be confirmed with the OS maintainer.</p>
+      <a href="risks.html">Understand the risks before flashing <span aria-hidden="true">→</span></a>
+    </footer>
+  </main>
+</body>
+</html>
